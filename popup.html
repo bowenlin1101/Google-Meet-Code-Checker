@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <link rel="stylesheet"href="popup.css">
+    </head>
+    <body>
+        <script src="popup.js"></script>
+        <div id="correct_page">
+            <div id="header">
+                <h1>Google Meet Code Checker</h1>
+                <p>Notifies you when a meeting code is valid </p>
+            </div>
+            <div id="action_container">
+                <h2>Insert your Meet code here</h2>
+                <input id="code_textbox" type="text">
+                
+                <p id="error" style="color:red; display: none">Enter a valid code</p>
+                
+                <button id="run">Start Checking</button>
+            </div>
+        </div>
+
+        <div id="incorrect_page">
+            <h1 style="color:red">Please open the popup on the google meet tab</h1>
+        </div>
+    </body>
+</html>

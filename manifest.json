@@ -1,0 +1,14 @@
+{
+"name": "Google Meet Code Checker",
+"description": "Notifies you when a google meet code becomes valid",
+"version": "1.0",
+"manifest_version": 3,
+    "content_scripts":[{"matches": ["https://meet.google.com/*"],
+    "js": ["contentScript.js"],
+    "all_frames": true
+}],
+"permissions":["tabs","storage"],
+"action": {
+    "default_popup": "popup.html"
+}
+}
