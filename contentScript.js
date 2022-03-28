@@ -21,11 +21,8 @@ chrome.runtime.onMessage.addListener((request) => {
 })
 
 var announceInterval = setInterval(() => {
-    chrome.storage.sync.get(["code"], (result) => {
-        if (window.location.href.includes(result.code)){
-            alert("Meet is Ready!")
-            clearInterval(announceInterval)
-            clearInterval(checkInterval)
-        }   
-    })
+    if (window.location.href.split(".com")[1].includes("-") ){
+        alert("Meet is Ready!")
+        clearInterval(announceInterval)
+    }   
 }, 1000)
