@@ -1,5 +1,6 @@
 var code;
 var checkInterval;
+var announceInterval;
 chrome.runtime.onMessage.addListener((request) => {
     document.getElementById("i3").focus()
     document.getElementById("i3").value = request.code
@@ -19,10 +20,15 @@ chrome.runtime.onMessage.addListener((request) => {
         }     
     }, 5000)
 })
-
-var announceInterval = setInterval(() => {
-    if (window.location.href.split(".com")[1].includes("-") ){
-        alert("Meet is Ready!")
-        clearInterval(announceInterval)
-    }   
-}, 1000)
+chrome.storage.sync.get(["code"], (result) => {
+    if (result.code){
+        announceInterval = setInterval(() => {
+            if (window.location.href.split(".com")[1].includes("-") ){
+                chrome.runtime.sendMessage({query: "alert"})
+                chrome.storage.sync.set({code: null})
+                clearInterval(announceInterval)
+            }   
+        }, 1000)
+    }
+})  
+    
