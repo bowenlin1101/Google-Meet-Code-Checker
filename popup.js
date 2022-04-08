@@ -1,4 +1,3 @@
-
 document.addEventListener("click", (e) => {
     if (e.target.tagName == "BUTTON"){
         chrome.storage.sync.get(['tabinfo'], (result) => {
@@ -32,7 +31,6 @@ document.addEventListener("click", (e) => {
 
 window.onload = ()=> {
     chrome.tabs.query({active:true, currentWindow:true}, function(tabs){
-        console.log(tabs[0].url)
         if (String(tabs[0].url).includes("meet.google.com")){
             document.getElementById("incorrect_page").style.display ="none"
         } else {
