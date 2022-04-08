@@ -7,5 +7,23 @@ chrome.runtime.onMessage.addListener((request)=> {
                 message: 'The meet code is working!',
                 priority: 2
             })
+            chrome.storage.sync.get(["tabId"], (result) => {
+                chrome.tabs.get(result.tabId, async (tab) => {
+                    if (tab.mutedInfo.muted){
+                        console.log("should be unmuted")
+                        await chrome.tabs.update(result.tabId, { muted:false });
+                    }
+                  });
+            }) 
+            chrome.storage.sync.set({tabId: null})
+        } else if (request.query == "mutetab"){
+            chrome.storage.sync.get(["tabId"], (result) => {
+                chrome.tabs.get(result.tabId, async (tab) => {
+                    if (!tab.mutedInfo.muted){
+                        await chrome.tabs.update(result.tabId, { muted:true });
+                    }
+                  });
+            }) 
+        
         }
 })

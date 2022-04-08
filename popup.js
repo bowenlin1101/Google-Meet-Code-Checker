@@ -7,6 +7,9 @@ document.addEventListener("click", (e) => {
                 chrome.tabs.sendMessage(tabs[0].id, {code: code})
                 alert("Running")
                 window.close()
+                chrome.tabs.query({active:true, currentWindow:true}, function(tabs){
+                    chrome.storage.sync.set({tabId: tabs[0].id})
+                })
             })
         } else {
             document.getElementById("error").style.display = "block"
@@ -25,4 +28,3 @@ window.onload = ()=> {
         }
     })
 }
-

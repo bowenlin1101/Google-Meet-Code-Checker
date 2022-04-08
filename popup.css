@@ -1,3 +1,7 @@
 body {
     width: 250px;
 }
+
+#code_textbox {
+    margin-bottom: 10px;
+}

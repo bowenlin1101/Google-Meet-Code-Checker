@@ -24,11 +24,16 @@ chrome.storage.sync.get(["code"], (result) => {
     if (result.code){
         announceInterval = setInterval(() => {
             if (window.location.href.split(".com")[1].includes("-") ){
-                chrome.runtime.sendMessage({query: "alert"})
-                chrome.storage.sync.set({code: null})
-                clearInterval(announceInterval)
+                console.log(document.getElementsByTagName("button")[0].innerText)
+                if (document.getElementsByTagName("button")[0].innerText.includes("Check your audio and video") || document.getElementsByTagName("button")[0].innerText.includes("more_vert")){
+                    chrome.runtime.sendMessage({query: "alert"})
+                    chrome.storage.sync.set({code: null})
+                    clearInterval(announceInterval)
+                } else {
+                    window.location.replace(window.location)
+                    chrome.runtime.sendMessage({query:"mutetab"})
+                }
             }   
         }, 1000)
     }
 })  
-    
