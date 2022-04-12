@@ -1,11 +1,12 @@
 chrome.runtime.onMessage.addListener((request,sender)=> {
     if (request.query == "alert"){
         //alert user
-        chrome.notifications.create('NOTFICATION_ID', {
+        chrome.notifications.create(`${String(request.tabId)} ${String(sender.tab.windowId)}`, {
             type: 'basic',
             iconUrl: 'Google_Meet_Checker_Logo.png',
             title: 'Google Meet Code',
-            message: `The meet code: ${request.code} is working!`,
+            message: "Click to go to meet tab",
+            contextMessage: `The meet code: ${request.code} is working!`,
             priority: 2
         })
         //unmute the tab
@@ -46,5 +47,15 @@ chrome.tabs.onRemoved.addListener(function(tabid) {
                 }
             }
         }
+    })
+})
+
+chrome.notifications.onClicked.addListener((tabinfo)=> {
+    console.log(tabinfo)
+    chrome.windows.get(parseInt(tabinfo.split(" ")[1]), async () => {
+        await chrome.windows.update(parseInt(tabinfo.split(" ")[1]), { focused:true})
+    })
+    chrome.tabs.get(parseInt(tabinfo.split(" ")[0]), async () => {
+        await chrome.tabs.update(parseInt(tabinfo.split(" ")[0]), { selected:true})
     })
 })

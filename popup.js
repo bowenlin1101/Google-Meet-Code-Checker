@@ -30,6 +30,12 @@ document.addEventListener("click", (e) => {
 })
 
 window.onload = ()=> {
+    chrome.storage.sync.get(["tabinfo"], (result) => {
+        if (result.tabinfo == undefined){
+            chrome.storage.sync.set({tabinfo:[]})
+        }
+    })
+
     chrome.tabs.query({active:true, currentWindow:true}, function(tabs){
         if (String(tabs[0].url).includes("meet.google.com")){
             document.getElementById("incorrect_page").style.display ="none"
