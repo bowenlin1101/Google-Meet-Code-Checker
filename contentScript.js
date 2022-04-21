@@ -14,6 +14,7 @@ function getCode(array, id){
 chrome.runtime.onMessage.addListener((request) => {
     if (request.query == "start"){
         id = request.tabId
+        chrome.runtime.sendMessage({query:"mutetab", tabId: id})
         chrome.storage.sync.get(["tabinfo"], (result) => {
             code = getCode(result.tabinfo,id)
             document.getElementById("i3").value = code
@@ -48,7 +49,6 @@ chrome.storage.sync.get(["tabinfo"], (result) => {
                         clearInterval(announceInterval)
                     } else {
                         window.location.replace(window.location)
-                        chrome.runtime.sendMessage({query:"mutetab", tabId: id})
                     }
                 }
             }
