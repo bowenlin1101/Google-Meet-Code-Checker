@@ -17,7 +17,9 @@ chrome.runtime.onMessage.addListener((request,sender)=> {
             message: "Click to join",
             contextMessage: `The meet code: ${request.code} is working!`,
             priority: 2
-        })
+        });
+        
+        
         //unmute the tab
         chrome.tabs.get(request.tabId, async (tab) => {
             if (tab.mutedInfo.muted){
@@ -34,6 +36,7 @@ chrome.runtime.onMessage.addListener((request,sender)=> {
                 }
             }
         })
+
     } else if (request.query == "mutetab"){
         chrome.tabs.get(request.tabId, async (tab) => {
             if (!tab.mutedInfo.muted){
